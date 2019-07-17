@@ -67,10 +67,12 @@ public class UserServiceImpl implements UserService {
 //todo: This actually will come from sso
     private UserInfo createDummyUserInfo() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setEmail("test@gmail.com");
-        userInfo.setFirstname("FName");
-        userInfo.setLastname("Lname");
-        userInfo.setMageId("MAGE001");
+        int random = (int )(Math. random() * 50 + 1);
+        userInfo.setEmail("test".concat(Integer.toString(random)).concat("@gmail.com"));
+
+        userInfo.setFirstname("FName".concat(Integer.toString(random)));
+        userInfo.setLastname("Lname".concat(Integer.toString(random)));
+        userInfo.setMageId("MAGE001".concat(Integer.toString(random)));
 
         return userInfo;
     }
@@ -81,11 +83,6 @@ public class UserServiceImpl implements UserService {
         //Retrieve the User details from MYSQL using the mageId if present
         User userToFind = userToFind(userInfo);
         userToFind.setUid(userInfo.getMageId());
-//        Example<User> userToFindExample = Example.of(userToFind);
-//
-//        //If not present, create the User
-//        User user = userRepository.findOne(userToFindExample).orElse(null);
-
         User user = userRepository.findByUid(userInfo.getMageId());
         //Create the user
         if (user == null) {

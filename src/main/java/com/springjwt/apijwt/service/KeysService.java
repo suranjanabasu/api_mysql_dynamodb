@@ -1,8 +1,12 @@
 package com.springjwt.apijwt.service;
 
 
+import com.springjwt.apijwt.pojo.UserInfo;
+import com.springjwt.apijwt.rds_entities.User;
 
 public interface KeysService {
 
-    public void createApiKeys(String mageId);
+    String createApiKeys(UserInfo userInfo);
+
+    String getKey(String mageId);
 }

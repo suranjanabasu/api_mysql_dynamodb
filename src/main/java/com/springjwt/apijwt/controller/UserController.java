@@ -30,15 +30,10 @@ public class UserController {
 
         UserInfo userInfo = userService.retrieveAuthUserDetails(authRequest.getCode());
 
-        User user = userService.retrieveOrCreateUser(userInfo);
+        userService.retrieveOrCreateUser(userInfo);
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                "User Id generated is " + user.getExternalId());
+                "MageId is " + userInfo.getMageId());
     }
-
-
-
-
-
 
 }

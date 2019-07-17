@@ -6,6 +6,7 @@ public class UserInfo {
     private String lastname;
     private String email;
     private String accessToken;
+
     private String mageId;
 
     public String getFirstname() {

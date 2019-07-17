@@ -1,10 +1,12 @@
 package com.springjwt.apijwt.controller;
 
 import com.springjwt.apijwt.pojo.UserInfo;
-import com.springjwt.apijwt.service.KeyServiceImpl;
 import com.springjwt.apijwt.service.KeysService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,35 +19,39 @@ public class KeysController {
     @Autowired
     private KeysService keysService;
 
+
     //Remember the id of the user comes from session
     //todo:  will be no mageId passed in once the session context is established. The stateless service is
     // done now just for testing
-    @GetMapping("/")
-    public String getKeys(@PathVariable String mageId ) {
+    @GetMapping("/{mageId}")
+    public ResponseEntity<String> getKeys(@PathVariable("mageId") String mageId ) {
+        //todo: Create a custom exception
+        if (StringUtils.isEmpty(mageId) ) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    "MageId needs to be present");
+        }
+        String apiKey = keysService.getKey(mageId);
+        if (StringUtils.isEmpty(apiKey)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    "ApiKey Not Found ");
+        }
 
-        //Hardcoding the mageId or now - This will come from the authenticated user
-        //Get Keys will retrieve the user from mysql table
-
-
-
-        return "ok from a";
+        return ResponseEntity.status(HttpStatus.OK).body(
+                "ApiKey is " + apiKey);
     }
 
     @PostMapping("/")
-    public String createKey(@RequestBody UserInfo userInfo, final HttpServletRequest request) {
+    public ResponseEntity<String> createKey(@RequestBody UserInfo userInfo, final HttpServletRequest request) {
 
-        //Hardcoding the mageId or now - This will come from the authenticated user
-        String mageId = userInfo.getMageId();
+        //todo: Create a custom exception
+        if (StringUtils.isEmpty(userInfo.getMageId()) ) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    "MageId needs to be present");
+        }
 
-        keysService.createApiKeys("");
+        String apiKey = keysService.createApiKeys(userInfo);
 
-        //Retrieve the User details from mysql table
-
-
-
-        //todo: Create keys in dynamodb and mysql linking is done
-
-
-        return "ok from a";
+        return ResponseEntity.status(HttpStatus.OK).body(
+                "ApiKey is " + apiKey);
     }
 }

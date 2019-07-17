@@ -24,6 +24,8 @@ public class User {
     private String accessToken;
     @Column(name = "access_token_expires_at")
     private String accessTokenExpiresAt;
+    @Column(name = "api_key")
+    private String apiKey;
 
     public String getUid() {
         return uid;
@@ -79,5 +81,13 @@ public class User {
 
     public void setAccessTokenExpiresAt(String accessTokenExpiresAt) {
         this.accessTokenExpiresAt = accessTokenExpiresAt;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }

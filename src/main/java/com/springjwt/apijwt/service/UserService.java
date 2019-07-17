@@ -7,7 +7,7 @@ import com.springjwt.apijwt.pojo.UserInfo;
 public interface UserService {
 
 
-    public UserInfo retrieveAuthUserDetails(String code);
+    UserInfo retrieveAuthUserDetails(String code);
 
-    public User retrieveOrCreateUser(UserInfo userInfo);
+    User retrieveOrCreateUser(UserInfo userInfo);
 }
