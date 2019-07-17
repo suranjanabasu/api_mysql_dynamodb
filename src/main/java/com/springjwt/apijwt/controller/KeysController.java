@@ -1,5 +1,6 @@
 package com.springjwt.apijwt.controller;
 
+import com.springjwt.apijwt.exceptions.ApiKeyNotFoundException;
 import com.springjwt.apijwt.pojo.UserInfo;
 import com.springjwt.apijwt.service.KeysService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/keys")
@@ -19,39 +20,34 @@ public class KeysController {
     @Autowired
     private KeysService keysService;
 
-
-    //Remember the id of the user comes from session
-    //todo:  will be no mageId passed in once the session context is established. The stateless service is
-    // done now just for testing
     @GetMapping("/{mageId}")
     public ResponseEntity<String> getKeys(@PathVariable("mageId") String mageId ) {
-        //todo: Create a custom exception
         if (StringUtils.isEmpty(mageId) ) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     "MageId needs to be present");
         }
         String apiKey = keysService.getKey(mageId);
         if (StringUtils.isEmpty(apiKey)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    "ApiKey Not Found ");
+            throw new ApiKeyNotFoundException();
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                "ApiKey is " + apiKey);
+                 apiKey);
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> createKey(@RequestBody UserInfo userInfo, final HttpServletRequest request) {
-
-        //todo: Create a custom exception
+    public ResponseEntity<String> createKey( @Valid @RequestBody UserInfo userInfo) {
         if (StringUtils.isEmpty(userInfo.getMageId()) ) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     "MageId needs to be present");
         }
 
         String apiKey = keysService.createApiKeys(userInfo);
+        if (StringUtils.isEmpty(apiKey)) {
+            throw new ApiKeyNotFoundException();
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                "ApiKey is " + apiKey);
+                apiKey);
     }
 }

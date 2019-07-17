@@ -1,7 +1,7 @@
 package com.springjwt.apijwt.service;
 
 
-import com.springjwt.apijwt.rds_entities.User;
+import com.springjwt.apijwt.rdsentities.User;
 import com.springjwt.apijwt.pojo.UserInfo;
 
 public interface UserService {

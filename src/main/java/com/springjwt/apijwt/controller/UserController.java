@@ -1,7 +1,6 @@
 package com.springjwt.apijwt.controller;
 
 
-import com.springjwt.apijwt.rds_entities.User;
 import com.springjwt.apijwt.pojo.AuthRequest;
 import com.springjwt.apijwt.pojo.UserInfo;
 import com.springjwt.apijwt.service.UserService;
@@ -17,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 @Slf4j
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody AuthRequest authRequest, final HttpServletRequest request) {
+    @PostMapping("")
+    public ResponseEntity<String> create(@RequestBody AuthRequest authRequest, final HttpServletRequest request) {
         log.debug("Entering authenticate with code: "+authRequest.getCode());
 
         UserInfo userInfo = userService.retrieveAuthUserDetails(authRequest.getCode());
@@ -33,7 +32,7 @@ public class UserController {
         userService.retrieveOrCreateUser(userInfo);
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                "MageId is " + userInfo.getMageId());
+                 userInfo.getMageId());
     }
 
 }

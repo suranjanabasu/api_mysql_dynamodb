@@ -1,4 +1,4 @@
-package com.springjwt.apijwt.rds_entities;
+package com.springjwt.apijwt.rdsentities;
 
 import javax.persistence.*;
 

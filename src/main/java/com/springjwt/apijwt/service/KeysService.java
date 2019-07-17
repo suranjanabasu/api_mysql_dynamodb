@@ -2,7 +2,7 @@ package com.springjwt.apijwt.service;
 
 
 import com.springjwt.apijwt.pojo.UserInfo;
-import com.springjwt.apijwt.rds_entities.User;
+
 
 public interface KeysService {
 

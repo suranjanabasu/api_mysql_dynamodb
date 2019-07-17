@@ -1,13 +1,23 @@
 package com.springjwt.apijwt.pojo;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserInfo {
 
     private String firstname;
     private String lastname;
     private String email;
     private String accessToken;
-
+    @NotBlank(message = "MageId is mandatory")
     private String mageId;
+
+    public UserInfo(@NotBlank(message = "MageId is mandatory") String mageId) {
+        this.mageId = mageId;
+    }
+
+    public UserInfo() {
+
+    }
 
     public String getFirstname() {
         return firstname;

@@ -1,4 +1,4 @@
-package com.springjwt.apijwt.dynamodb_entities;
+package com.springjwt.apijwt.dynamodbentities;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;

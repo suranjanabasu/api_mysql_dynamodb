@@ -39,18 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    }
 //
-//    @Bean("authenticationManager")
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-    //todo: Handle the User check on MYSQL here in the Auth Suucess handler as this is a one time thing
-
-//    @Bean
-//    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-//        return new MySimpleUrlAuthenticationSuccessHandler();
-//    }
 
 
 

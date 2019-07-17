@@ -1,9 +1,9 @@
 package com.springjwt.apijwt.service;
 
 
-import com.springjwt.apijwt.rds_entities.User;
+import com.springjwt.apijwt.rdsentities.User;
 import com.springjwt.apijwt.pojo.UserInfo;
-import com.springjwt.apijwt.repositories.UserRepository;
+import com.springjwt.apijwt.rdsrepositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

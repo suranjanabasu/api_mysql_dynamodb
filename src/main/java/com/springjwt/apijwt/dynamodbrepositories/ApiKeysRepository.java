@@ -4,7 +4,8 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
-import com.springjwt.apijwt.rds_entities.User;
+import com.amazonaws.util.Base64;
+import com.springjwt.apijwt.rdsentities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+
+import static org.springframework.security.crypto.keygen.KeyGenerators.secureRandom;
 
 
 @Slf4j
@@ -26,7 +27,7 @@ public class ApiKeysRepository  {
 
     public String createApiKey(User user) {
         Table table = dynamoDB.getTable("localapikeys");
-        String apiKey = UUID.randomUUID().toString();
+        String apiKey = Base64.encodeAsString(secureRandom(32).generateKey());
 
         // Build the item
         Item item = new Item()
