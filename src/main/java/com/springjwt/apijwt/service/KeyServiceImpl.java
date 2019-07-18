@@ -1,6 +1,5 @@
 package com.springjwt.apijwt.service;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.springjwt.apijwt.dynamodbrepositories.ApiKeysRepository;
 import com.springjwt.apijwt.pojo.UserInfo;
 import com.springjwt.apijwt.rdsentities.User;
@@ -12,8 +11,6 @@ import org.springframework.util.StringUtils;
 @Service
 public class KeyServiceImpl implements KeysService{
 
-    @Autowired
-    private AmazonDynamoDB amazonDynamoDB;
     @Autowired
     private UserRepository userRepository;
 

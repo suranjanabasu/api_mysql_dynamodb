@@ -3,6 +3,7 @@ package com.springjwt.apijwt.controller;
 
 import com.springjwt.apijwt.pojo.AuthRequest;
 import com.springjwt.apijwt.pojo.UserInfo;
+import com.springjwt.apijwt.rdsentities.User;
 import com.springjwt.apijwt.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,11 @@ public class UserController {
 
         UserInfo userInfo = userService.retrieveAuthUserDetails(authRequest.getCode());
 
-        userService.retrieveOrCreateUser(userInfo);
+        User user = userService.retrieveOrCreateUser(userInfo);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    "User not created");
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(
                  userInfo.getMageId());
