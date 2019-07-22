@@ -13,7 +13,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - mysql-db:/var/lib/mysql
+      - ../scripts/mysql_init:/docker-entrypoint-initdb.d
   dynamo:
     image: "amazon/dynamodb-local"
     container_name: dev-dynamodb
@@ -23,5 +23,5 @@ services:
       - "8000:8000"
 # Names our volume
 volumes:
-  mysql-db:
+  mysql_init:
   dynamodb_local_db:
